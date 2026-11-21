@@ -1,85 +1,64 @@
-# 🎧 VibeMatch
+# VibeMatch
 
-**Système de recommandation musicale basé sur les caractéristiques audio de Spotify.**
+VibeMatch recommande des morceaux qui ont la même vibe que celui que vous aimez.
 
-Projet de fin de formation **GOMYCODE — Data Scientist**.
+Choisissez un titre, VibeMatch analyse son profil sonore (énergie, dansabilité, humeur, acoustique, tempo…) et propose les morceaux qui lui ressemblent le plus, parmi plus de 170 000 titres sortis entre 1921 et 2020.
 
----
+> Projet en cours de développement.
 
-## Le projet
+## Fonctionnalités
 
-Quand on aime un morceau, on cherche souvent d'autres titres qui ont la même « vibe » : la même énergie, la même ambiance, le même rythme. VibeMatch répond à ce besoin. À partir d'un morceau choisi, l'application recommande des titres au profil sonore proche.
+- **Recherche d'un morceau** par titre ou par artiste
+- **Recommandations personnalisées** : les morceaux les plus proches, avec leur score de similarité
+- **Profil audio** du morceau choisi, comparé à ceux des recommandations
+- **Carte des vibes** : visualisation des groupes de morceaux aux ambiances proches
+- **Exploration** de l'évolution de la musique au fil des décennies
 
-L'approche est une **recommandation basée sur le contenu** : chaque morceau est décrit par ses caractéristiques audio (dansabilité, énergie, valence, acoustique, tempo…). Je regroupe les morceaux similaires par **clustering**, puis je recommande les plus proches à l'aide d'une **mesure de similarité**.
+## Comment ça marche
 
-## Les données
+Chaque morceau est décrit par une dizaine de caractéristiques audio. Après normalisation, les morceaux sont regroupés par ambiance avec un algorithme de clustering (KMeans). Pour un titre donné, VibeMatch recherche ensuite les morceaux les plus proches avec la similarité cosinus.
 
-J'utilise le dataset **Spotify 1921-2020** disponible sur Kaggle :
-👉 [Spotify Dataset (Kaggle)](https://www.kaggle.com/datasets/vatsalmavani/spotify-dataset)
+Les recommandations reposent uniquement sur le son des morceaux, pas sur l'historique d'écoute des utilisateurs. VibeMatch peut donc recommander un titre peu connu dès lors qu'il a la bonne vibe.
 
-| Fichier | Contenu | Taille |
-|---|---|---|
-| `data.csv` | Un morceau par ligne, avec ses caractéristiques audio | 170 653 morceaux |
-| `data_by_genres.csv` | Moyennes des caractéristiques par genre | 2 973 genres |
-| `data_by_artist.csv` | Moyennes des caractéristiques par artiste | 28 680 artistes |
-| `data_by_year.csv` | Moyennes des caractéristiques par année | 100 années |
-
-Les fichiers sont trop volumineux pour GitHub. Pour reproduire le projet, il faut les télécharger et les placer dans `data/raw/Spotify/`.
-
-## Démarche
-
-| Étape | Notebook | Statut |
-|---|---|---|
-| 1. Chargement et découverte des données | `01_data_loading.ipynb` | ✅ Terminé |
-| 2. Analyse exploratoire (évolution par décennie, genres, corrélations) | `02_eda.ipynb` | ⏳ À venir |
-| 3. Clustering des morceaux et des genres (KMeans, PCA) | `03_clustering.ipynb` | ⏳ À venir |
-| 4. Moteur de recommandation (similarité cosinus) | `04_recommendation.ipynb` | ⏳ À venir |
-| 5. Application web interactive | `app/` (Streamlit) | ⏳ À venir |
-
-## Premiers constats
-
-- Les données sont complètes : aucune valeur manquante et aucun doublon.
-- Les variables numériques sont sur des échelles très différentes (`tempo`, `loudness`, `duration_ms`), une normalisation est nécessaire avant le clustering.
-- Le dataset est plafonné à environ 2 000 morceaux par an. Les volumes par décennie ne reflètent donc pas la production musicale réelle.
-
-## Structure du projet
-
-```
-VibeMatch/
-├── data/
-│   ├── raw/          # Données d'origine (non versionnées)
-│   └── processed/    # Données transformées
-├── notebooks/        # Exploration et modélisation, dans l'ordre
-├── src/              # Code Python réutilisable (chargement, features, recommandation)
-├── models/           # Modèles entraînés (non versionnés)
-├── app/              # Application Streamlit
-└── requirements.txt
-```
-
-## Installation
+## Lancer le projet
 
 ```bash
 git clone https://github.com/Nourr-Ghouila/vibematch.git
 cd vibematch
 
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # macOS / Linux
+.venv\Scripts\activate          # Windows
+# source .venv/bin/activate     # macOS / Linux
 
 pip install -r requirements.txt
 ```
 
-Ensuite, je place les fichiers du dataset dans `data/raw/Spotify/` et je lance Jupyter :
+Les données proviennent du [Spotify Dataset sur Kaggle](https://www.kaggle.com/datasets/vatsalmavani/spotify-dataset). Les fichiers CSV sont à placer dans `data/raw/Spotify/`.
 
 ```bash
-jupyter notebook notebooks/
+python src/train.py             # entraîne et sauvegarde les modèles
+streamlit run app/app.py        # lance l'application
 ```
 
-## Outils
+## Stack technique
 
-Python · pandas · NumPy · Matplotlib · Seaborn · Plotly · scikit-learn · Streamlit
+- **Données** : pandas, NumPy
+- **Machine learning** : scikit-learn (KMeans, PCA, similarité cosinus)
+- **Visualisation** : Matplotlib, Seaborn, Plotly
+- **Application** : Streamlit
 
-## Contact
+## Structure
 
-**Nour Ghouila** — Data Scientist en formation (GOMYCODE)
-GitHub : [@Nourr-Ghouila](https://github.com/Nourr-Ghouila)
+```
+vibematch/
+├── app/            application Streamlit
+├── src/            chargement des données, préparation, moteur de recommandation
+├── notebooks/      exploration et choix de modélisation
+├── models/         modèles entraînés
+├── data/           données brutes et transformées
+└── requirements.txt
+```
+
+---
+
+Nour Ghouila · Projet de fin de formation Data Scientist, GOMYCODE
