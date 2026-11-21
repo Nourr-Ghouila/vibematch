@@ -2,9 +2,12 @@
 data/
 
 # Modèles entraînés et fichiers lourds
-models/*.pkl
-models/*.joblib
-models/*.h5
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+*.onnx
 *.csv
 *.zip
 *.parquet
