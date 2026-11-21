@@ -1,4 +1,4 @@
-# VibeMatch
+# 🎧 VibeMatch
 
 VibeMatch est un système de recommandation musicale que je développe dans le cadre de mon projet de fin de formation Data Scientist chez GOMYCODE.
 
@@ -16,7 +16,7 @@ L'idée m'est venue d'une situation simple : quand j'aime un morceau, j'ai envie
 
 ## Mon approche
 
-J'ai choisi une recommandation basée sur le contenu. Chaque morceau est décrit par une dizaine de caractéristiques audio (dansabilité, énergie, valence, acoustique, tempo…). Je les normalise, puis je regroupe les morceaux par ambiance avec KMeans. Pour un titre donné, je cherche ensuite les morceaux les plus proches avec la similarité cosinus.
+J'ai choisi une recommandation basée sur le contenu. Chaque morceau est décrit par une dizaine de caractéristiques audio (dansabilité, énergie, humeur, acoustique, tempo…). Je les normalise, puis je regroupe les morceaux par ambiance avec KMeans. Pour un titre donné, je cherche ensuite les morceaux les plus proches avec la similarité cosinus.
 
 Ce choix me permet de ne dépendre que du son des morceaux, sans historique d'écoute. VibeMatch peut donc recommander un titre peu connu dès lors qu'il a la bonne vibe.
 
