@@ -1,24 +1,24 @@
 # VibeMatch
 
-VibeMatch recommande des morceaux qui ont la même vibe que celui que vous aimez.
+VibeMatch est un système de recommandation musicale que je développe dans le cadre de mon projet de fin de formation Data Scientist chez GOMYCODE.
 
-Choisissez un titre, VibeMatch analyse son profil sonore (énergie, dansabilité, humeur, acoustique, tempo…) et propose les morceaux qui lui ressemblent le plus, parmi plus de 170 000 titres sortis entre 1921 et 2020.
+L'idée m'est venue d'une situation simple : quand j'aime un morceau, j'ai envie d'en trouver d'autres qui ont la même ambiance, la même énergie, le même rythme. Avec VibeMatch, je choisis un titre et l'application me propose les morceaux dont le profil sonore est le plus proche, parmi plus de 170 000 titres sortis entre 1921 et 2020.
 
 > Projet en cours de développement.
 
 ## Fonctionnalités
 
 - **Recherche d'un morceau** par titre ou par artiste
-- **Recommandations personnalisées** : les morceaux les plus proches, avec leur score de similarité
+- **Recommandations** des morceaux les plus proches, avec leur score de similarité
 - **Profil audio** du morceau choisi, comparé à ceux des recommandations
 - **Carte des vibes** : visualisation des groupes de morceaux aux ambiances proches
 - **Exploration** de l'évolution de la musique au fil des décennies
 
-## Comment ça marche
+## Mon approche
 
-Chaque morceau est décrit par une dizaine de caractéristiques audio. Après normalisation, les morceaux sont regroupés par ambiance avec un algorithme de clustering (KMeans). Pour un titre donné, VibeMatch recherche ensuite les morceaux les plus proches avec la similarité cosinus.
+J'ai choisi une recommandation basée sur le contenu. Chaque morceau est décrit par une dizaine de caractéristiques audio (dansabilité, énergie, valence, acoustique, tempo…). Je les normalise, puis je regroupe les morceaux par ambiance avec KMeans. Pour un titre donné, je cherche ensuite les morceaux les plus proches avec la similarité cosinus.
 
-Les recommandations reposent uniquement sur le son des morceaux, pas sur l'historique d'écoute des utilisateurs. VibeMatch peut donc recommander un titre peu connu dès lors qu'il a la bonne vibe.
+Ce choix me permet de ne dépendre que du son des morceaux, sans historique d'écoute. VibeMatch peut donc recommander un titre peu connu dès lors qu'il a la bonne vibe.
 
 ## Lancer le projet
 
@@ -33,7 +33,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Les données proviennent du [Spotify Dataset sur Kaggle](https://www.kaggle.com/datasets/vatsalmavani/spotify-dataset). Les fichiers CSV sont à placer dans `data/raw/Spotify/`.
+J'utilise le [Spotify Dataset disponible sur Kaggle](https://www.kaggle.com/datasets/vatsalmavani/spotify-dataset). Les fichiers CSV sont à placer dans `data/raw/Spotify/`.
 
 ```bash
 python src/train.py             # entraîne et sauvegarde les modèles
@@ -53,7 +53,7 @@ streamlit run app/app.py        # lance l'application
 vibematch/
 ├── app/            application Streamlit
 ├── src/            chargement des données, préparation, moteur de recommandation
-├── notebooks/      exploration et choix de modélisation
+├── notebooks/      mon exploration et mes choix de modélisation
 ├── models/         modèles entraînés
 ├── data/           données brutes et transformées
 └── requirements.txt
@@ -61,4 +61,4 @@ vibematch/
 
 ---
 
-Nour Ghouila · Projet de fin de formation Data Scientist, GOMYCODE
+Nour Ghouila · Data Scientist en formation, GOMYCODE
